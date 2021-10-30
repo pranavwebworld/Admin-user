@@ -1,0 +1,12 @@
+.body {
+
+    margin: 0;
+    padding: 0;
+    background-color: #17a2b8;
+    height: 100vh;
+    
+    background-image:"https://www.atypicalfinance.com/wp-content/uploads/2018/10/Homepage-background.jpg";
+
+    background-size:cover;
+    
+  }

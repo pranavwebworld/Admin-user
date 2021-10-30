@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Log in</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <link rel="stylesheet" href="/css/style.css">
+    
+    <title>Document</title>
+</head>
+<body>
+    
+
+<body>
+    <div id="login">
+        <h3 class="text-center text-white pt-5"></h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+
+                        
+                        <form id="login-form" class="form" action="/login" method="POST">
+                            <h3 class="text-center text-white">Login</h3>
+                            <div class="form-group " style="color: #e3fbfb">
+                                <label for="email" class="text-white"   >Email:</label><br>
+                                <input required type="email" name="email" id="username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-white"  required  >Password </label><br>
+                                <input required type="password" name="pass" id="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label  style=" margin-left: 173px; color: red;"><span> <%=response.error%></span> </label><br>
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                                
+                            </div>
+                            
+                                
+                            
+                            </div>
+                        </div>
+                    </form>
+                        <form class="tble text-white " action="/admin/adlogin" method="get">
+
+                        <button type="submit" style=" position: relative;
+                        left: 303px;
+                        top: -242px;
+                        z-index: 3;" id="btn" name="table" class="btn btn-success">Admin login</button>
+           
+                        </form>
+                    
+                    </div>
+                    
+
+                            
+                   
+                        
+                    <form class="tble text-white " action="/signup" method="get">
+
+                        <button  style="    position: relative;
+                        left: 573px;
+                        top: -50px;
+                        z-index: 3;" id="btn" name="table" class="btn btn-success">Create new account</button>
+                      </form>
+                      
+                        </form>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</body>
+</html>

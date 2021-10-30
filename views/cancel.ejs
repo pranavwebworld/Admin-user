@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>Document</title>
+</head>
+<body>
+
+
+
+    <header>
+
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <a class="navbar-brand">Admin Panel</a>
+            <a class="navbar-brand">All users</a>
+
+            <form action="/admin" method="get">
+                <button class="btn btn-outline-secondary" type="submit">Return</button>
+                           </form>
+        
+
+    </header>
+    
+   
+
+
+    <section>
+
+        <div class="container">
+
+
+                   <table  id="table"  class="table table-dark" >
+                    <thead>
+                      <tr>
+                        <th scope="col">no</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Options</th>
+                     
+                      </tr>
+                    </thead>
+                    <tbody>
+      
+      
+      
+                    <%for (var i=0; i < indata.length ; i++){%>
+                      <tr>
+                        <td scope="row"><%=i+1%></td>
+                        <td><%=indata[i].email%></td>
+                        <td><%=indata[i].pass%></td>
+                        <td><a href="/admin/userdelete/<%=indata[i]._id%>">  <i style=" color: aquamarine; padding: 2px;" class="fas fa-user-minus" onclick=" return confirm('Are you sure')" > </i> </a> <a href="/admin/editUser/<%=indata[i]._id%>"> <i  style="color: aquamarine;" class="fas fa-user-edit"></i></a> 
+                
+
+                          <a style="color: aquamarine;" href="/admin/blockuser/<%=indata[i]._id%>"><%=indata[i].isActive%>"</a>
+                  
+                      </a>
+                          </td>
+                      </tr>
+      
+                      
+                      <%}%> 
+                     
+                      
+                    </tbody>
+      
+                   
+                  </table>
+
+
+                </div>
+            </section>
+
+            
+
+</body>
+</html>

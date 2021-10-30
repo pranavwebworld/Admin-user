@@ -1,0 +1,179 @@
+section>
+    <div class="container pt-4">
+        <div class="d-flex justify-content-between mb-3">
+            <h2>User <b>Details</b></h2>
+               <div class="d-flex">
+                   <form class="" action="/admin/searchuser" method="post">
+                    <input class="form-control me-2" id="searchUser" type="text" placeholder="Search User" aria-label="Search" name="seachuser">
+                    <button class="btn btn-outline-success" onclick="hiden()"  type="submit">Search</button>
+                                 </form>
+                                 <form action="/admin/searchCancel" method="post">
+                    <button class="btn btn-outline-secondary" onclick="hiden()"  type="submit">cancel</button>
+                               </form>
+               </div>
+        </div>
+        <div class="row">
+            <div class="col-12" id="table">
+                <table class="table" id="">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">name</th>
+                            <th scope="col">username</th>
+                            <th scope="col">password</th>
+                            <th scope="col">Actions</th>
+                          </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <%for(var i=0;i<user.length;i++){%>
+                            <tr id='tr_<%= user[i]._id %>'>
+                                <th scope="row"><%=[i+1]%></th>
+                                <td><%=user[i].newname%></td>
+                                <td><%=user[i].newusername%></td>
+                                <td>******</td>
+                                <td>
+                                    <a class="p-2" href="" id="<%= user[i]._id %>"  onclick="deleteuser('<%=user[i]._id%>')"><i class="fas fa-trash"></i></a>
+                
+                                        <a class="p-2" href="" style="color: red;" class="block" id="block_<%=user[i]._id%>"  onclick="blockUser('<%=user[i]._id%>')"><%=user[i].isActive%></a>
+                
+                                        <!-- <a class="p-2" href="" id="block"  onclick="blockUser('<%=user[i]._id%>')">unblock</a> -->
+                
+                
+                                    <a class="p-2" href="" type="submit" onclick="editClick('<%=user[i].newname%>','<%=user[i].newusername%>','<%=user[i].newpass%>','<%=user[i]._id%>')" id="edit"><i class="fas fa-pencil-alt"></i></i></a>
+                                </td>
+                              </tr>
+                        <%}%>
+                        <tr class="add-user">
+                            <form action="/admin/adduser" method="post">
+                                <th scope="row"></th>
+                                <td><input class="form-control" type="text" name="newname" id="nameid" placeholder="name" required></td>
+                                <td><input class="form-control" type="text" name="newusername" id="uderid" placeholder="username" required></td>
+                                <td><input class="form-control" type="text" name="newpass" id="passid" placeholder="password" required></td>
+                                <td>
+                                    <button type="submit" class="p-2" id="add" href=""><i class="fas fa-user-plus"></i></button>
+                                    <a class="p-2 close" href=""><i class="fas fa-times"></i></a>
+                
+                                </td>
+                            </form>
+                          </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="section">
+    <div class="popup col-md-6" id="editpopup">
+        <div class="popup-content p-4">
+            <div class="butn text-center">
+                <h5>Edit</h5>
+            </div>
+            <form id="edit_value" action="/admin/edituser" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" id="inp_name" name="newname" class="form-control" value="">
+                  </div>
+                <div class="mb-3">
+                  <label class="form-label">Username</label>
+                  <input type="text" id="inp_username" name="newusername" class="form-control" value="">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Password</label>
+                  <input type="password" id="inp_pass" name="newpass" class="form-control" value="" disabled>
+                  <input id="editid" type="text" name="id" style="display: none ;" value="">
+                </div>  
+                <div class="butn text-center pt-3">
+                    <button type="submit" class=" btn btn-success">Edit</button>
+                    <!-- <button type="submit" id="cancel" class="btn btn-secondary">Cancel</button> -->
+                </div>
+              </form>
+        </div>
+    </div>  
+</section>
+
+   
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<script>
+
+    function editClick(name,username,pass,id){
+        event.preventDefault();
+        console.log(name ,username, pass,   id,+ "Hai");
+        let doc = document.getElementById('editpopup')
+        doc.style.display='block';
+        document.getElementById('inp_name').value=name
+        document.getElementById('inp_username').value=username
+        document.getElementById('inp_pass').value="*****"
+        document.getElementById('editid').value=id
+
+        console.log(doc);
+            
+
+    }
+    
+
+    function deleteuser(id){
+        
+        event.preventDefault();
+        let tr=document.getElementById("tr_"+id);
+        confirm("really")
+        $.ajax({
+            
+            
+            url : '/admin/deleteuser',
+            method : 'post',
+            data : {id : id},
+            success : ()=>{
+                // alert("sucess")
+                tr.parentNode.removeChild(tr);
+            }
+        })  
+    }
+    function blockUser(id){
+        let button=document.getElementById("block_"+id);
+        console.log(id,"idddd");
+        event.preventDefault()
+        $.ajax({
+
+            url: '/admin/blockuser',
+            method:'post',
+            data:{id:id},
+            success : (data)=>{
+               if(data.blocked){
+                    button.innerHTML="Unblock";
+               }else{
+                    button.innerHTML="Block"
+               }
+            }
+            
+        })
+        
+    }
+    function editUser(){
+        event.preventDefault();
+        let id = document.getElementById("editid").value
+        let doc = document.getElementById('editpopup')
+        console.log(id+'  haiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii')
+        let edit = document.getElementById('edit_value');
+
+    }
+
+    // function searchUser(){
+    //     event.preventDefault()
+    //     let value = document.querySelector("#searchUser").value
+    //     let id = document.getElementById("table")
+    //     $.ajax({
+    //         url:'/admin/searchuser',
+    //         method:'post',
+    //         data:{
+    //             value:value
+    //         },
+    //         success:()=>{
+    //             alert("successss")
+    //         }
+    //     })
+    // }
+
+
+</script>
